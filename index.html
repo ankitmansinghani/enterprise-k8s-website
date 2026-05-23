@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ankit Mansinghani — Enterprise Kubernetes &amp; Infrastructure Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-primary: #0b0f1a; --bg-secondary: #111827; --bg-card: #161d2e; --bg-card-hover: #1c2540;
+      --border: #1e2d4a; --border-hover: #2a4a7a;
+      --accent: #3b82f6; --accent-light: #60a5fa; --accent-glow: rgba(59,130,246,0.15);
+      --teal: #14b8a6; --teal-light: #2dd4bf;
+      --text-primary: #f1f5f9; --text-secondary: #94a3b8; --text-muted: #64748b;
+      --radius: 10px; --radius-lg: 16px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .badge { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; background: var(--accent-glow); color: var(--accent-light); border: 1px solid rgba(59,130,246,.3); }
+    .section-label { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .section-title { font-size: clamp(1.6rem,4vw,2.2rem); font-weight: 700; color: var(--text-primary); margin-bottom: 16px; }
+    .section-subtitle { font-size: 1.05rem; color: var(--text-secondary); max-width: 580px; }
+    section { padding: 96px 0; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(11,15,26,.93); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { font-weight: 700; font-size: 1.05rem; color: var(--text-primary); text-decoration: none; }
+    .nav-logo span { color: var(--accent-light); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: .88rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 8px 18px !important; border-radius: 6px !important; font-weight: 600 !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-secondary); border-radius: 2px; }
+    .mobile-menu { display: none; flex-direction: column; background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 16px 24px 24px; gap: 20px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: .95rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; }
+    #hero { padding: 100px 0 80px; position: relative; overflow: hidden; }
+    .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(59,130,246,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.04) 1px,transparent 1px); background-size: 48px 48px; pointer-events: none; }
+    .hero-glow { position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; background: radial-gradient(ellipse,rgba(59,130,246,.12) 0%,transparent 70%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+    .hero-cert { display: flex; align-items: center; gap: 7px; font-size: .78rem; font-weight: 600; color: var(--teal-light); background: rgba(20,184,166,.1); border: 1px solid rgba(20,184,166,.25); padding: 5px 12px; border-radius: 20px; }
+    .hero-name { font-size: clamp(2.4rem,6vw,3.8rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 12px; }
+    .hero-name .highlight { background: linear-gradient(135deg,var(--accent-light),var(--teal-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-tagline { font-size: clamp(1.1rem,2.5vw,1.35rem); color: var(--text-secondary); margin-bottom: 28px; max-width: 620px; }
+    .hero-bio { font-size: 1rem; color: var(--text-secondary); max-width: 560px; margin-bottom: 44px; line-height: 1.7; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: .95rem; font-weight: 600; padding: 13px 28px; border-radius: var(--radius); text-decoration: none; transition: background .2s,transform .15s,box-shadow .2s; }
+    .btn-primary:hover { background: var(--accent-light); color: #0b0f1a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,.35); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text-primary); font-size: .95rem; font-weight: 600; padding: 12px 28px; border-radius: var(--radius); text-decoration: none; border: 1px solid var(--border-hover); transition: background .2s,border-color .2s,transform .15s; }
+    .btn-secondary:hover { background: var(--bg-card); border-color: var(--accent); color: var(--accent-light); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 40px; margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-number { font-size: 1.7rem; font-weight: 700; letter-spacing: -.02em; }
+    .stat-label { font-size: .8rem; color: var(--text-muted); font-weight: 500; }
+    #about { background: var(--bg-secondary); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .about-text p { font-size: 1.02rem; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.75; }
+    .about-text strong { color: var(--text-primary); font-weight: 600; }
+    .skills-panel { display: flex; flex-direction: column; gap: 20px; }
+    .skill-group { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; }
+    .skill-group-title { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag { font-size: .8rem; font-weight: 500; color: var(--text-secondary); background: var(--bg-secondary); border: 1px solid var(--border); padding: 4px 10px; border-radius: 5px; }
+    #services { background: var(--bg-primary); }
+    .services-header { margin-bottom: 56px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .service-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 28px; display: flex; flex-direction: column; transition: border-color .25s,box-shadow .25s,transform .2s,background .25s; position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--accent),var(--teal)); opacity: 0; transition: opacity .25s; }
+    .service-card:hover { border-color: var(--border-hover); box-shadow: 0 12px 40px rgba(59,130,246,.12); transform: translateY(-4px); background: var(--bg-card-hover); }
+    .service-card:hover::before { opacity: 1; }
+    .service-card.featured { border-color: rgba(59,130,246,.35); }
+    .service-card.featured::before { opacity: 1; }
+    .card-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; background: var(--accent-glow); border: 1px solid rgba(59,130,246,.2); }
+    .card-icon.teal-icon { background: rgba(20,184,166,.1); border-color: rgba(20,184,166,.2); }
+    .card-icon.purple-icon { background: rgba(139,92,246,.1); border-color: rgba(139,92,246,.2); }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+    .card-desc { font-size: .9rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 24px; flex: 1; }
+    .pricing-tiers { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .tier { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--bg-secondary); border-radius: 6px; border: 1px solid var(--border); }
+    .tier-name { font-size: .82rem; font-weight: 600; color: var(--text-secondary); }
+    .tier-price { font-size: .85rem; font-weight: 700; color: var(--accent-light); }
+    .card-action { font-size: .88rem; font-weight: 600; color: var(--accent-light); text-decoration: none; display: flex; align-items: center; gap: 6px; margin-top: auto; transition: gap .2s,color .2s; }
+    .card-action:hover { color: #fff; gap: 10px; }
+    .coming-soon-banner { background: rgba(139,92,246,.1); border: 1px solid rgba(139,92,246,.25); border-radius: 6px; padding: 10px 14px; font-size: .82rem; color: #c4b5fd; font-weight: 500; text-align: center; margin-bottom: 20px; }
+    #youtube { background: var(--bg-secondary); }
+    .yt-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .yt-channel-art { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 40px 32px; text-align: center; position: relative; overflow: hidden; }
+    .yt-icon-wrap { width: 80px; height: 80px; background: #ff0000; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 8px 32px rgba(255,0,0,.25); }
+    .yt-icon-wrap svg { width: 40px; height: 40px; fill: white; }
+    .yt-channel-name { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+    .yt-channel-handle { font-size: .85rem; color: var(--text-muted); margin-bottom: 20px; }
+    .yt-topics { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 28px; }
+    .yt-topic { font-size: .78rem; font-weight: 500; padding: 4px 10px; border-radius: 20px; background: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-secondary); }
+    .yt-subscribe-btn { display: inline-flex; align-items: center; gap: 8px; background: #ff0000; color: #fff; font-size: .9rem; font-weight: 700; padding: 11px 24px; border-radius: 8px; text-decoration: none; transition: background .2s,transform .15s; }
+    .yt-subscribe-btn:hover { background: #cc0000; transform: translateY(-2px); }
+    .yt-description { font-size: 1rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 28px; }
+    .yt-description strong { color: var(--text-primary); }
+    .videos-list { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .video-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 18px; background: var(--bg-card); transition: background .2s; }
+    .video-item:hover { background: var(--bg-card-hover); }
+    .video-item + .video-item { border-top: 1px solid var(--border); }
+    .video-num { font-size: .75rem; font-weight: 700; color: var(--accent); background: var(--accent-glow); border: 1px solid rgba(59,130,246,.2); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .video-title { font-size: .9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; line-height: 1.4; }
+    .video-desc { font-size: .82rem; color: var(--text-muted); line-height: 1.55; }
+    #contact { background: var(--bg-primary); }
+    .contact-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .contact-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 52px; }
+    .contact-methods { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .contact-method { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--text-secondary); text-decoration: none; transition: color .2s; }
+    .contact-method:hover { color: var(--accent-light); }
+    .contact-method-icon { width: 36px; height: 36px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    footer { background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 40px 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-brand { font-size: .95rem; font-weight: 600; color: var(--text-primary); }
+    .footer-brand span { color: var(--accent-light); }
+    .footer-copy { font-size: .82rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: .82rem; color: var(--text-muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--accent-light); }
+    @media (max-width: 900px) { .cards-grid { grid-template-columns: 1fr; max-width: 480px; } .about-grid, .yt-layout { grid-template-columns: 1fr; gap: 40px; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } section { padding: 72px 0; } .footer-inner { flex-direction: column; text-align: center; } }
+    @media (max-width: 480px) { .cards-grid { max-width: 100%; } .hero-actions { flex-direction: column; } .btn-primary, .btn-secondary { width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#hero">Ankit<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#youtube">YouTube</a></li>
+        <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMobile()">About</a>
+    <a href="#services" onclick="closeMobile()">Services</a>
+    <a href="#youtube" onclick="closeMobile()">YouTube</a>
+    <a href="#contact" onclick="closeMobile()">Get in Touch</a>
+  </div>
+</nav>
+<section id="hero">
+  <div class="hero-grid-bg"></div><div class="hero-glow"></div>
+  <div class="container"><div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-cert"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="6"/><path d="M9 22v-2a3 3 0 0 1 6 0v2"/><path d="M7 22h10"/></svg>CKA Certified Kubernetes Administrator</span>
+      <span class="badge">Open to Consulting Engagements</span>
+    </div>
+    <h1 class="hero-name">Ankit<br/><span class="highlight">Mansinghani</span></h1>
+    <p class="hero-tagline">Enterprise Kubernetes &amp; Infrastructure Consulting</p>
+    <p class="hero-bio">I help engineering teams build, harden, and scale Kubernetes clusters on real hardware — bringing hands-on experience with Lenovo ThinkSystem servers, Mellanox high-speed networking, and enterprise data infrastructure that most cloud-native consultants have never touched.</p>
+    <div class="hero-actions">
+      <a href="mailto:ankitmansinghani21@gmail.com?subject=K8s Cluster Audit Inquiry" class="btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="m2 7 10 7 10-7"/></svg>Book a K8s Audit</a>
+      <a href="mailto:ankitmansinghani21@gmail.com?subject=Enterprise K8s Course - Waitlist" class="btn-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Join Course Waitlist</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-number">CKA</span><span class="stat-label">Kubernetes Certified</span></div>
+      <div class="stat-item"><span class="stat-number">10y+</span><span class="stat-label">Enterprise Infrastructure</span></div>
+      <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">Service Offerings</span></div>
+      <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Bare-metal Focused</span></div>
+    </div>
+  </div></div>
+</section>
+<section id="about"><div class="container"><div class="about-grid">
+  <div class="about-text">
+    <div class="section-label">About</div>
+    <h2 class="section-title">The infrastructure perspective most consultants are missing</h2>
+    <p>I am a <strong>CKA-certified Kubernetes Administrator</strong> with a career built at the intersection of hardware and software. Where most cloud engineers have never racked a server, I have spent years deep inside enterprise data center hardware — deploying and tuning <strong>Lenovo ThinkSystem</strong> servers and configuring <strong>Mellanox ConnectX NICs</strong> for SR-IOV, InfiniBand, and RDMA workloads.</p>
+    <p>Before moving into Kubernetes full-time, I served as a hardware configuration designer for the <strong>Netezza NZ4001</strong> data warehouse appliance — giving me a rare, ground-level understanding of how high-throughput analytics systems are built and why migrations are harder than vendors admit.</p>
+    <p>My consulting work focuses on organizations that want Kubernetes done properly on real hardware: bare-metal clusters, GPU and AI workloads, high-speed networking, and legacy data warehouse migrations to the cloud.</p>
+  </div>
+  <div class="skills-panel">
+    <div class="skill-group"><div class="skill-group-title">Kubernetes &amp; Cloud</div><div class="skill-tags"><span class="skill-tag">Kubernetes (CKA)</span><span class="skill-tag">Bare-metal Clusters</span><span class="skill-tag">kubeadm</span><span class="skill-tag">Helm</span><span class="skill-tag">RBAC Hardening</span><span class="skill-tag">Network Policies</span><span class="skill-tag">Prometheus / Grafana</span></div></div>
+    <div class="skill-group"><div class="skill-group-title">Hardware &amp; Networking</div><div class="skill-tags"><span class="skill-tag">Lenovo ThinkSystem</span><span class="skill-tag">Mellanox ConnectX</span><span class="skill-tag">SR-IOV</span><span class="skill-tag">InfiniBand</span><span class="skill-tag">RDMA / RoCE</span><span class="skill-tag">GPU Clusters</span></div></div>
+    <div class="skill-group"><div class="skill-group-title">Data &amp; Migration</div><div class="skill-tags"><span class="skill-tag">Netezza NZ4001</span><span class="skill-tag">Snowflake</span><span class="skill-tag">BigQuery</span><span class="skill-tag">AWS / GCP / Azure</span><span class="skill-tag">ETL Pipelines</span></div></div>
+  </div>
+</div></div></section>
+<section id="services"><div class="container">
+  <div class="services-header"><div class="section-label">Services</div><h2 class="section-title">How I can help your team</h2><p class="section-subtitle">Focused engagements for senior engineers and enterprise buyers who need real expertise.</p></div>
+  <div class="cards-grid">
+    <div class="service-card featured"><div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div class="card-title">Kubernetes Cluster Audit</div><p class="card-desc">A structured review of your bare-metal or on-prem K8s cluster covering security posture, networking, RBAC, storage, and operational readiness. Written findings report with prioritized remediation steps.</p><div class="pricing-tiers"><div class="tier"><span class="tier-name">Starter</span><span class="tier-price">$2,500</span></div><div class="tier"><span class="tier-name">Standard</span><span class="tier-price">$5,500</span></div><div class="tier"><span class="tier-name">Enterprise</span><span class="tier-price">$12,000+</span></div></div><a href="mailto:ankitmansinghani21@gmail.com?subject=K8s Cluster Audit Inquiry" class="card-action">Request an Audit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+    <div class="service-card"><div class="card-icon teal-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div><div class="card-title">Netezza Migration Consulting</div><p class="card-desc">Moving off Netezza NZ-series hardware is deceptively complex. I have worked directly with the NZ4001 platform and understand the nuances — query compatibility, SPU architecture, NPS SQL dialects, and migration paths to Snowflake, BigQuery, and cloud-native data warehouses.</p><div class="pricing-tiers"><div class="tier"><span class="tier-name">Hourly Rate</span><span class="tier-price">$150–$300/hr</span></div><div class="tier"><span class="tier-name">Project-based</span><span class="tier-price">Quoted on scope</span></div></div><a href="mailto:ankitmansinghani21@gmail.com?subject=Netezza Migration Consulting" class="card-action">Discuss Your Migration <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+    <div class="service-card"><div class="card-icon purple-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="card-title">Enterprise Kubernetes Course</div><p class="card-desc">A practitioner-focused course on deploying and operating production Kubernetes clusters on real hardware — bare-metal provisioning, Mellanox networking, GPU workloads, security hardening. Designed for senior infrastructure engineers.</p><div class="coming-soon-banner">&#9734; Launching soon — waitlist open now</div><a href="mailto:ankitmansinghani21@gmail.com?subject=Enterprise K8s Course - Waitlist" class="card-action">Join the Waitlist <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+  </div>
+</div></section>
+<section id="youtube"><div class="container"><div class="yt-layout">
+  <div>
+    <div class="section-label">YouTube Channel</div>
+    <h2 class="section-title">Enterprise Kubernetes on YouTube</h2>
+    <p class="yt-description">I am building a YouTube channel for engineers who want to see <strong>real enterprise infrastructure</strong> — actual bare-metal Kubernetes deployments on <strong>Lenovo ThinkSystem</strong> servers with <strong>Mellanox ConnectX</strong> networking, GPU cluster builds, and honest guidance on migrating legacy data warehouses.</p>
+    <div class="videos-list">
+      <div class="video-item"><div class="video-num">01</div><div><div class="video-title">Bare-Metal K8s on Lenovo ThinkSystem SR650 - From Zero to Cluster</div><div class="video-desc">Full walkthrough: BIOS tuning, OS prep, kubeadm bootstrap, and CNI setup on real server hardware.</div></div></div>
+      <div class="video-item"><div class="video-num">02</div><div><div class="video-title">Mellanox ConnectX and SR-IOV in Kubernetes - The Right Way</div><div class="video-desc">Configure SR-IOV with Mellanox NICs, deploy the device plugin, and validate virtual function allocation inside pods.</div></div></div>
+      <div class="video-item"><div class="video-num">03</div><div><div class="video-title">GPU Clusters on K8s: NVIDIA Device Plugin, MIG, and Scheduling</div><div class="video-desc">Deploy GPU workloads on bare-metal Kubernetes — device plugin, Multi-Instance GPU, and resource quotas that actually work.</div></div></div>
+      <div class="video-item"><div class="video-num">04</div><div><div class="video-title">Kubernetes Security Hardening for Enterprise - CIS Benchmarks and Beyond</div><div class="video-desc">RBAC, Pod Security Admission, network policies, secrets management, and audit logging for production-grade clusters.</div></div></div>
+      <div class="video-item"><div class="video-num">05</div><div><div class="video-title">Migrating Netezza NZ4001 to Snowflake - What Nobody Tells You</div><div class="video-desc">The real challenges: NPS SQL compatibility gaps, SPU-specific query patterns, and a migration checklist from someone inside the appliance.</div></div></div>
+    </div>
+  </div>
+  <div><div class="yt-channel-art">
+    <div class="yt-icon-wrap"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+    <div class="yt-channel-name">Enterprise Kubernetes</div>
+    <div class="yt-channel-handle">@AnkitMansinghani</div>
+    <div class="yt-topics"><span class="yt-topic">Bare-metal K8s</span><span class="yt-topic">Mellanox Networking</span><span class="yt-topic">GPU Clusters</span><span class="yt-topic">SR-IOV</span><span class="yt-topic">Data Warehouse Migration</span></div>
+    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="yt-subscribe-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/></svg>Subscribe on YouTube</a>
+  </div></div>
+</div></div></section>
+<section id="contact"><div class="container"><div class="contact-inner">
+  <span class="section-label">Contact</span>
+  <h2 class="section-title">Ready to work together?</h2>
+  <p class="section-subtitle" style="margin:0 auto 44px">Whether you need a K8s audit, Netezza migration guidance, or want to talk through a complex infrastructure challenge — start with a free 20-minute intro call.</p>
+  <div class="contact-actions">
+    <a href="mailto:ankitmansinghani21@gmail.com?subject=Free 20-min Intro Call Request" class="btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>Book a Free 20-min Intro Call</a>
+    <a href="mailto:ankitmansinghani21@gmail.com" class="btn-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="m2 7 10 7 10-7"/></svg>Send an Email</a>
+  </div>
+  <div class="contact-methods">
+    <a href="mailto:ankitmansinghani21@gmail.com" class="contact-method"><span class="contact-method-icon">&#9993;</span>ankitmansinghani21@gmail.com</a>
+  </div>
+</div></div></section>
+<footer><div class="container"><div class="footer-inner">
+  <div class="footer-brand">Ankit <span>Mansinghani</span></div>
+  <div class="footer-copy">&copy; 2026 Ankit Mansinghani. All rights reserved.</div>
+  <div class="footer-links"><a href="#about">About</a><a href="#services">Services</a><a href="#youtube">YouTube</a><a href="mailto:ankitmansinghani21@gmail.com">Contact</a></div>
+</div></div></footer>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { const id = entry.target.id; navLinks.forEach(link => { link.style.color = ''; if (link.getAttribute('href') === '#' + id) link.style.color = 'var(--text-primary)'; }); } });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
