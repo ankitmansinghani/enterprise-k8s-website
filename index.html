@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ankit Mansinghani — Enterprise Kubernetes &amp; Infrastructure Consulting</title>
+  <meta name="description" content="Enterprise Kubernetes consulting, bare-metal K8s audits, and Netezza migration services. CKA-certified engineer with Lenovo ThinkSystem and Mellanox expertise." />
+  <link rel="canonical" href="https://enterprise-k8s-website-production.up.railway.app" />
+  <meta property="og:title" content="Ankit Mansinghani — Enterprise Kubernetes &amp; Infrastructure Consulting" />
+  <meta property="og:description" content="Enterprise Kubernetes consulting, bare-metal K8s audits, and Netezza migration services. CKA-certified engineer with Lenovo ThinkSystem and Mellanox expertise." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://enterprise-k8s-website-production.up.railway.app" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ankit Mansinghani — Enterprise Kubernetes &amp; Infrastructure Consulting" />
+  <meta name="twitter:description" content="Enterprise Kubernetes consulting, bare-metal K8s audits, and Netezza migration services. CKA-certified engineer with Lenovo ThinkSystem and Mellanox expertise." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,6 +64,12 @@
     .stat-item { display: flex; flex-direction: column; gap: 4px; }
     .stat-number { font-size: 1.7rem; font-weight: 700; letter-spacing: -.02em; }
     .stat-label { font-size: .8rem; color: var(--text-muted); font-weight: 500; }
+    /* Trusted Technologies strip */
+    #trust { background: var(--bg-secondary); padding: 48px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .trust-title { text-align: center; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 22px; }
+    .trust-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .trust-pill { font-size: .82rem; font-weight: 600; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--accent); padding: 7px 16px; border-radius: 999px; transition: color .2s,background .2s,transform .15s; }
+    .trust-pill:hover { color: var(--accent-light); background: var(--accent-glow); transform: translateY(-1px); }
     #about { background: var(--bg-secondary); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
     .about-text p { font-size: 1.02rem; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.75; }
@@ -85,6 +100,38 @@
     .card-action { font-size: .88rem; font-weight: 600; color: var(--accent-light); text-decoration: none; display: flex; align-items: center; gap: 6px; margin-top: auto; transition: gap .2s,color .2s; }
     .card-action:hover { color: #fff; gap: 10px; }
     .coming-soon-banner { background: rgba(139,92,246,.1); border: 1px solid rgba(139,92,246,.25); border-radius: 6px; padding: 10px 14px; font-size: .82rem; color: #c4b5fd; font-weight: 500; text-align: center; margin-bottom: 20px; }
+    /* Audit scope accordion */
+    .audit-scope { margin-top: 40px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; }
+    .audit-scope-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .audit-scope-title { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); }
+    .audit-scope-sub { font-size: .9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .audit-domains { display: flex; flex-direction: column; gap: 10px; }
+    details.audit-domain { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color .2s; }
+    details.audit-domain[open] { border-color: var(--accent); }
+    details.audit-domain summary { padding: 14px 18px; cursor: pointer; font-size: .92rem; font-weight: 600; color: var(--text-primary); list-style: none; display: flex; align-items: center; justify-content: space-between; transition: background .2s; user-select: none; }
+    details.audit-domain summary::-webkit-details-marker { display: none; }
+    details.audit-domain summary:hover { background: var(--bg-card-hover); }
+    details.audit-domain summary::after { content: '+'; font-size: 1.3rem; font-weight: 400; color: var(--accent-light); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; transition: transform .25s; }
+    details.audit-domain[open] summary::after { content: '−'; transform: rotate(180deg); }
+    .audit-domain-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 5px; background: var(--accent-glow); border: 1px solid rgba(59,130,246,.25); color: var(--accent-light); font-size: .72rem; font-weight: 700; margin-right: 10px; }
+    .audit-domain-body { padding: 0 18px 16px 52px; }
+    .audit-domain-body ul { list-style: none; padding: 0; margin: 0; }
+    .audit-domain-body li { font-size: .87rem; color: var(--text-secondary); padding: 6px 0; position: relative; padding-left: 18px; line-height: 1.55; }
+    .audit-domain-body li::before { content: '\2713'; position: absolute; left: 0; color: var(--teal-light); font-weight: 700; }
+    /* Contact form */
+    .contact-form { display: flex; flex-direction: column; gap: 18px; text-align: left; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; margin-bottom: 36px; }
+    .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label { font-size: .8rem; font-weight: 600; color: var(--text-secondary); letter-spacing: .04em; }
+    .form-field input, .form-field select, .form-field textarea { font-family: inherit; font-size: .95rem; color: var(--text-primary); background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 14px; transition: border-color .2s,background .2s; outline: none; }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--accent); background: var(--bg-card-hover); }
+    .form-field textarea { min-height: 120px; resize: vertical; }
+    .form-field select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2.5'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+    .form-submit { align-self: flex-start; background: var(--accent); color: #fff; font-family: inherit; font-size: .95rem; font-weight: 600; padding: 13px 28px; border: none; border-radius: var(--radius); cursor: pointer; transition: background .2s,transform .15s,box-shadow .2s; }
+    .form-submit:hover { background: var(--accent-light); color: #0b0f1a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,.35); }
+    .form-thankyou { display: none; background: rgba(20,184,166,.1); border: 1px solid rgba(20,184,166,.3); color: var(--teal-light); padding: 18px 22px; border-radius: var(--radius); font-size: .95rem; font-weight: 500; margin-bottom: 36px; text-align: center; }
+    .form-thankyou.show { display: block; }
+    .contact-form.hidden { display: none; }
     #youtube { background: var(--bg-secondary); }
     .yt-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
     .yt-channel-art { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 40px 32px; text-align: center; position: relative; overflow: hidden; }
@@ -107,7 +154,6 @@
     .video-desc { font-size: .82rem; color: var(--text-muted); line-height: 1.55; }
     #contact { background: var(--bg-primary); }
     .contact-inner { max-width: 680px; margin: 0 auto; text-align: center; }
-    .contact-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 52px; }
     .contact-methods { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
     .contact-method { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--text-secondary); text-decoration: none; transition: color .2s; }
     .contact-method:hover { color: var(--accent-light); }
@@ -120,9 +166,9 @@
     .footer-links { display: flex; gap: 24px; }
     .footer-links a { font-size: .82rem; color: var(--text-muted); text-decoration: none; transition: color .2s; }
     .footer-links a:hover { color: var(--accent-light); }
-    @media (max-width: 900px) { .cards-grid { grid-template-columns: 1fr; max-width: 480px; } .about-grid, .yt-layout { grid-template-columns: 1fr; gap: 40px; } }
-    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } section { padding: 72px 0; } .footer-inner { flex-direction: column; text-align: center; } }
-    @media (max-width: 480px) { .cards-grid { max-width: 100%; } .hero-actions { flex-direction: column; } .btn-primary, .btn-secondary { width: 100%; justify-content: center; } }
+    @media (max-width: 900px) { .cards-grid { grid-template-columns: 1fr; max-width: 480px; } .about-grid, .yt-layout { grid-template-columns: 1fr; gap: 40px; } .contact-form-row { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } section { padding: 72px 0; } .footer-inner { flex-direction: column; text-align: center; } .audit-domain-body { padding: 0 18px 16px 18px; } }
+    @media (max-width: 480px) { .cards-grid { max-width: 100%; } .hero-actions { flex-direction: column; } .btn-primary, .btn-secondary { width: 100%; justify-content: center; } .contact-form { padding: 24px 20px; } .form-submit { width: 100%; } }
   </style>
 </head>
 <body>
@@ -157,8 +203,8 @@
     <p class="hero-tagline">Enterprise Kubernetes &amp; Infrastructure Consulting</p>
     <p class="hero-bio">I help engineering teams build, harden, and scale Kubernetes clusters on real hardware — bringing hands-on experience with Lenovo ThinkSystem servers, Mellanox high-speed networking, and enterprise data infrastructure that most cloud-native consultants have never touched.</p>
     <div class="hero-actions">
-      <a href="mailto:ankitmansinghani21@gmail.com?subject=K8s Cluster Audit Inquiry" class="btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="m2 7 10 7 10-7"/></svg>Book a K8s Audit</a>
-      <a href="mailto:ankitmansinghani21@gmail.com?subject=Enterprise K8s Course - Waitlist" class="btn-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Join Course Waitlist</a>
+      <a href="#contact" class="btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="m2 7 10 7 10-7"/></svg>Book a K8s Audit</a>
+      <a href="#contact" class="btn-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Join Course Waitlist</a>
     </div>
     <div class="hero-stats">
       <div class="stat-item"><span class="stat-number">CKA</span><span class="stat-label">Kubernetes Certified</span></div>
@@ -167,6 +213,21 @@
       <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Bare-metal Focused</span></div>
     </div>
   </div></div>
+</section>
+<section id="trust">
+  <div class="container">
+    <div class="trust-title">Technologies I work with daily</div>
+    <div class="trust-pills">
+      <span class="trust-pill">Kubernetes</span>
+      <span class="trust-pill">Lenovo ThinkSystem</span>
+      <span class="trust-pill">Mellanox ConnectX</span>
+      <span class="trust-pill">IBM Netezza</span>
+      <span class="trust-pill">Prometheus</span>
+      <span class="trust-pill">Grafana</span>
+      <span class="trust-pill">Cilium</span>
+      <span class="trust-pill">kubeadm</span>
+    </div>
+  </div>
 </section>
 <section id="about"><div class="container"><div class="about-grid">
   <div class="about-text">
@@ -185,9 +246,74 @@
 <section id="services"><div class="container">
   <div class="services-header"><div class="section-label">Services</div><h2 class="section-title">How I can help your team</h2><p class="section-subtitle">Focused engagements for senior engineers and enterprise buyers who need real expertise.</p></div>
   <div class="cards-grid">
-    <div class="service-card featured"><div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div class="card-title">Kubernetes Cluster Audit</div><p class="card-desc">A structured review of your bare-metal or on-prem K8s cluster covering security posture, networking, RBAC, storage, and operational readiness. Written findings report with prioritized remediation steps.</p><div class="pricing-tiers"><div class="tier"><span class="tier-name">Starter</span><span class="tier-price">$2,500</span></div><div class="tier"><span class="tier-name">Standard</span><span class="tier-price">$5,500</span></div><div class="tier"><span class="tier-name">Enterprise</span><span class="tier-price">$12,000+</span></div></div><a href="mailto:ankitmansinghani21@gmail.com?subject=K8s Cluster Audit Inquiry" class="card-action">Request an Audit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
-    <div class="service-card"><div class="card-icon teal-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div><div class="card-title">Netezza Migration Consulting</div><p class="card-desc">Moving off Netezza NZ-series hardware is deceptively complex. I have worked directly with the NZ4001 platform and understand the nuances — query compatibility, SPU architecture, NPS SQL dialects, and migration paths to Snowflake, BigQuery, and cloud-native data warehouses.</p><div class="pricing-tiers"><div class="tier"><span class="tier-name">Hourly Rate</span><span class="tier-price">$150–$300/hr</span></div><div class="tier"><span class="tier-name">Project-based</span><span class="tier-price">Quoted on scope</span></div></div><a href="mailto:ankitmansinghani21@gmail.com?subject=Netezza Migration Consulting" class="card-action">Discuss Your Migration <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
-    <div class="service-card"><div class="card-icon purple-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="card-title">Enterprise Kubernetes Course</div><p class="card-desc">A practitioner-focused course on deploying and operating production Kubernetes clusters on real hardware — bare-metal provisioning, Mellanox networking, GPU workloads, security hardening. Designed for senior infrastructure engineers.</p><div class="coming-soon-banner">&#9734; Launching soon — waitlist open now</div><a href="mailto:ankitmansinghani21@gmail.com?subject=Enterprise K8s Course - Waitlist" class="card-action">Join the Waitlist <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+    <div class="service-card featured"><div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div class="card-title">Kubernetes Cluster Audit</div><p class="card-desc">A structured review of your bare-metal or on-prem K8s cluster covering security posture, networking, RBAC, storage, and operational readiness. Written findings report with prioritized remediation steps.</p><div class="pricing-tiers"><div class="tier"><span class="tier-name">Starter</span><span class="tier-price">$2,500</span></div><div class="tier"><span class="tier-name">Standard</span><span class="tier-price">$5,500</span></div><div class="tier"><span class="tier-name">Enterprise</span><span class="tier-price">$12,000+</span></div></div><a href="#contact" class="card-action">Request an Audit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+    <div class="service-card"><div class="card-icon teal-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div><div class="card-title">Netezza Migration Consulting</div><p class="card-desc">Moving off Netezza NZ-series hardware is deceptively complex. I have worked directly with the NZ4001 platform and understand the nuances — query compatibility, SPU architecture, NPS SQL dialects, and migration paths to Snowflake, BigQuery, and cloud-native data warehouses.</p><div class="pricing-tiers"><div class="tier"><span class="tier-name">Hourly Rate</span><span class="tier-price">$150–$300/hr</span></div><div class="tier"><span class="tier-name">Project-based</span><span class="tier-price">Quoted on scope</span></div></div><a href="#contact" class="card-action">Discuss Your Migration <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+    <div class="service-card"><div class="card-icon purple-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="card-title">Enterprise Kubernetes Course</div><p class="card-desc">A practitioner-focused course on deploying and operating production Kubernetes clusters on real hardware — bare-metal provisioning, Mellanox networking, GPU workloads, security hardening. Designed for senior infrastructure engineers.</p><div class="coming-soon-banner">&#9734; Launching soon — waitlist open now</div><a href="#contact" class="card-action">Join the Waitlist <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+  </div>
+  <div class="audit-scope">
+    <div class="audit-scope-header">
+      <div class="card-icon" style="margin-bottom:0;width:36px;height:36px;border-radius:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+      <div class="audit-scope-title">What's covered in a K8s Cluster Audit</div>
+    </div>
+    <p class="audit-scope-sub">Every audit walks through these six domains. Click any to see the checks.</p>
+    <div class="audit-domains">
+      <details class="audit-domain">
+        <summary><span><span class="audit-domain-num">1</span>Security &amp; RBAC</span></summary>
+        <div class="audit-domain-body"><ul>
+          <li>RBAC least privilege review across all ServiceAccounts and ClusterRoles</li>
+          <li>Pod Security Standards (baseline / restricted) enforcement</li>
+          <li>Network Policies — default-deny posture and namespace isolation</li>
+          <li>Secrets encryption at rest (etcd encryption providers)</li>
+          <li>Service Account token expiry and projected token usage</li>
+        </ul></div>
+      </details>
+      <details class="audit-domain">
+        <summary><span><span class="audit-domain-num">2</span>Networking</span></summary>
+        <div class="audit-domain-body"><ul>
+          <li>CNI configuration review (Cilium, Calico, Flannel) and MTU tuning</li>
+          <li>DNS performance — CoreDNS sizing, cache hit ratio, NodeLocal DNS</li>
+          <li>Ingress TLS termination, certificate rotation, and SNI handling</li>
+          <li>Service mesh readiness (Istio / Linkerd) and sidecar resource impact</li>
+          <li>Network Policy coverage across workloads and east-west traffic paths</li>
+        </ul></div>
+      </details>
+      <details class="audit-domain">
+        <summary><span><span class="audit-domain-num">3</span>Resources</span></summary>
+        <div class="audit-domain-body"><ul>
+          <li>Resource requests and limits set on every pod — no noisy neighbors</li>
+          <li>LimitRange and ResourceQuota policies per namespace</li>
+          <li>Horizontal Pod Autoscaler configuration and metric source validation</li>
+          <li>Node capacity planning and bin-packing efficiency review</li>
+        </ul></div>
+      </details>
+      <details class="audit-domain">
+        <summary><span><span class="audit-domain-num">4</span>Reliability</span></summary>
+        <div class="audit-domain-body"><ul>
+          <li>PodDisruptionBudgets for all critical workloads</li>
+          <li>Multi-replica deployments with proper anti-affinity spread</li>
+          <li>Liveness, readiness, and startup probes correctly configured</li>
+          <li>Node affinity and taint/toleration strategy for hardware isolation</li>
+        </ul></div>
+      </details>
+      <details class="audit-domain">
+        <summary><span><span class="audit-domain-num">5</span>Observability</span></summary>
+        <div class="audit-domain-body"><ul>
+          <li>Prometheus and metrics-server deployment, scrape config, retention</li>
+          <li>Log aggregation pipeline (Loki, Fluent Bit, ELK) and PII handling</li>
+          <li>Alerting rules — SLO-driven, deduplicated, and routed correctly</li>
+          <li>Distributed tracing (Tempo, Jaeger) coverage on critical paths</li>
+        </ul></div>
+      </details>
+      <details class="audit-domain">
+        <summary><span><span class="audit-domain-num">6</span>Lifecycle</span></summary>
+        <div class="audit-domain-body"><ul>
+          <li>Upgrade path assessment — control plane and node version skew</li>
+          <li>Deprecated API usage scan and migration plan</li>
+          <li>Image tag policies — no :latest, signed images, vulnerability scanning</li>
+          <li>CI/CD integration — GitOps workflow, drift detection, rollback safety</li>
+        </ul></div>
+      </details>
+    </div>
   </div>
 </div></section>
 <section id="youtube"><div class="container"><div class="yt-layout">
@@ -214,11 +340,41 @@
 <section id="contact"><div class="container"><div class="contact-inner">
   <span class="section-label">Contact</span>
   <h2 class="section-title">Ready to work together?</h2>
-  <p class="section-subtitle" style="margin:0 auto 44px">Whether you need a K8s audit, Netezza migration guidance, or want to talk through a complex infrastructure challenge — start with a free 20-minute intro call.</p>
-  <div class="contact-actions">
-    <a href="mailto:ankitmansinghani21@gmail.com?subject=Free 20-min Intro Call Request" class="btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/></svg>Book a Free 20-min Intro Call</a>
-    <a href="mailto:ankitmansinghani21@gmail.com" class="btn-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="m2 7 10 7 10-7"/></svg>Send an Email</a>
-  </div>
+  <p class="section-subtitle" style="margin:0 auto 44px">Whether you need a K8s audit, Netezza migration guidance, or want to talk through a complex infrastructure challenge — send a quick note below and I'll get back to you within 24 hours.</p>
+  <form id="contactForm" class="contact-form" action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID" method="POST">
+    <div class="contact-form-row">
+      <div class="form-field">
+        <label for="cf-name">Full Name</label>
+        <input id="cf-name" name="name" type="text" required autocomplete="name" />
+      </div>
+      <div class="form-field">
+        <label for="cf-email">Work Email</label>
+        <input id="cf-email" name="email" type="email" required autocomplete="email" />
+      </div>
+    </div>
+    <div class="contact-form-row">
+      <div class="form-field">
+        <label for="cf-company">Company</label>
+        <input id="cf-company" name="company" type="text" autocomplete="organization" />
+      </div>
+      <div class="form-field">
+        <label for="cf-interest">Service Interest</label>
+        <select id="cf-interest" name="service_interest" required>
+          <option value="">Select one…</option>
+          <option value="K8s Audit">K8s Audit</option>
+          <option value="Netezza Migration">Netezza Migration</option>
+          <option value="Course Waitlist">Course Waitlist</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="cf-message">Message</label>
+      <textarea id="cf-message" name="message" required placeholder="Tell me a bit about your cluster, team, or migration challenge."></textarea>
+    </div>
+    <button type="submit" class="form-submit">Send Message &rarr;</button>
+  </form>
+  <div id="formThankyou" class="form-thankyou">Thanks! I'll get back to you within 24 hours.</div>
   <div class="contact-methods">
     <a href="mailto:ankitmansinghani21@gmail.com" class="contact-method"><span class="contact-method-icon">&#9993;</span>ankitmansinghani21@gmail.com</a>
   </div>
@@ -226,7 +382,7 @@
 <footer><div class="container"><div class="footer-inner">
   <div class="footer-brand">Ankit <span>Mansinghani</span></div>
   <div class="footer-copy">&copy; 2026 Ankit Mansinghani. All rights reserved.</div>
-  <div class="footer-links"><a href="#about">About</a><a href="#services">Services</a><a href="#youtube">YouTube</a><a href="mailto:ankitmansinghani21@gmail.com">Contact</a></div>
+  <div class="footer-links"><a href="#about">About</a><a href="#services">Services</a><a href="#youtube">YouTube</a><a href="#contact">Contact</a></div>
 </div></div></footer>
 <script>
   const hamburger = document.getElementById('hamburger');
@@ -239,6 +395,27 @@
     entries.forEach(entry => { if (entry.isIntersecting) { const id = entry.target.id; navLinks.forEach(link => { link.style.color = ''; if (link.getAttribute('href') === '#' + id) link.style.color = 'var(--text-primary)'; }); } });
   }, { rootMargin: '-30% 0px -60% 0px' });
   sections.forEach(s => observer.observe(s));
+
+  // Contact form: AJAX submit to Formspree, then show thank-you message.
+  const contactForm = document.getElementById('contactForm');
+  const thankyou = document.getElementById('formThankyou');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(contactForm);
+      try {
+        const res = await fetch(contactForm.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+        if (res.ok) {
+          contactForm.classList.add('hidden');
+          thankyou.classList.add('show');
+        } else {
+          alert('Sorry — something went wrong. Please email ankitmansinghani21@gmail.com directly.');
+        }
+      } catch (err) {
+        alert('Network error. Please email ankitmansinghani21@gmail.com directly.');
+      }
+    });
+  }
 </script>
 </body>
 </html>
